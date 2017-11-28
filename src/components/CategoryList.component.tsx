@@ -7,11 +7,15 @@ class СategoryList extends React.Component<any, any> {
         const {getCategories} = this.props;
         getCategories();
     }
+    categoryClick(id: number) {
+        const {getSubCategories} = this.props;
+        getSubCategories(id);
+    }
     render() {
         const title = "Categories";
         let categoriesNodes = this.props.categories.map((c: any) => {
             return (
-                <CategoryItem title={c.title} key={c.id}>
+                <CategoryItem title={c.title} key={c.id} onClick={() => this.categoryClick(c.id)}>
                     {c.title}
                 </CategoryItem>
             );

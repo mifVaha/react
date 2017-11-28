@@ -1,7 +1,20 @@
 import {GET_CATEGORIES_SUCCEEDED, GET_SUBCATEGORIES_SUCCEEDED} from '../constants/actionTypes.constant';
 
 const initialState = {
-    categories: [{}]
+    categories: [
+        {
+            id: 3,
+            title: "ima3"
+        },
+        {
+            id: 4,
+            title: "ima4"
+        },
+        {
+            id: 5,
+            title: "ima5"
+        }
+    ]
 };
 
 const categoriesReducer = (state = initialState, action: any) => {
