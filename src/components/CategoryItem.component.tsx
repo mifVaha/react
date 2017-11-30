@@ -1,5 +1,4 @@
 ﻿import * as React from "react";
-import { getSubCategories } from '../actions/subcategories.action'
 
 export class CategoryItem extends React.Component<any> {
     render() {

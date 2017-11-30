@@ -5,7 +5,7 @@ import {getSubCategories} from "../actions/subcategories.action";
 
 const mapStateToProps = (state: any) => {
     return {
-        categories: state.categoriesReducer.categories
+        categoriesTree: state.categoriesReducer.categoriesTree
     };
 };
 

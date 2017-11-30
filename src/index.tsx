@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import bbinfoSaga from './saga/saga';
 import { Provider } from "react-redux";
 import bbinfoReducer from "./reducers/";
-import СategoryList from "./containers/categories.container";
+import СategoryList from "./containers/categoriesTree.container";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(

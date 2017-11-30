@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import categoriesReducer from "./categories.reduser";
+import categoriesReducer from "./categoriesTree.reduser";
 
 const bbinfoReducer = combineReducers({
     categoriesReducer

@@ -13,10 +13,11 @@ function * fetchCategories() {
 
     }
 }
+
 function * fetchSubCategories(action: any) {
     try {
         const subcategories = yield call(Api.getSubCategories, action.id);
-        yield put({type: GET_SUBCATEGORIES_SUCCEEDED, subcategories: subcategories});
+        yield put({type: GET_SUBCATEGORIES_SUCCEEDED, subcategories: subcategories, id: action.id});
     } catch (e) {
 
     }

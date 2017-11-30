@@ -1,44 +1,53 @@
 import {eventChannel, END} from 'redux-saga';
+export interface IitemTree {
+    id: number;
+    parent: number;
+    title: string;
+}
 
-const categoriesGenerator = () => {
-    const count = 10;
-    const categories = [];
+const itemsGenerator = (size: number) => {
+    const items = [];
 
-    for (let i = 0; i < count; i++) {
-        const category = {
+    for (let i = 1; i <= size; i++) {
+        const item: IitemTree = {
+            parent: 0,
             id: i,
-            title: "category" + i
+            title: "item" + i
         };
-        categories.push(category);
+        items.push(item);
     }
-    return categories;
+    return items;
 };
 
-const getSubCAtegories = (id: number) => {
-    const count = 5;
-    let subid = 1;
-    const catgories = categoriesGenerator();
-    const subcategories = [{}];
-    catgories.map((cat: any) => {
-        for (let i = 0; i < count; i++) {
-            const subcategory = {
-                id: subid,
-                catid: cat.id,
-                title: "subcategory" + i
+const getItems = (size: number, parentarray: IitemTree[] ) => {
+    let id = 1;
+    let items: IitemTree[] = [];
+    parentarray.map((cat: any) => {
+        for (let i = 1; i <= size; i++) {
+            const item: IitemTree = {
+                parent: cat.id,
+                id: id,
+                title: "item" + i
             };
-            subcategories.push(subcategory);
-            subid++;
+            items.push(item);
+            id++;
         }
     });
 
-    return subcategories;
+    return items;
+};
+
+const getItemsById = (id: number, parentarray: IitemTree[]) => {
+    return parentarray.filter((item: IitemTree) => item.parent == id);
 };
 
 export default class Api {
     static getCategories() {
-        return categoriesGenerator();
+        return itemsGenerator(10);
     }
     static getSubCategories(id: number) {
-        return getSubCAtegories(id);
+        let parentarray: IitemTree[] = itemsGenerator(10);
+        let inheritarray:  IitemTree[] =  getItems(10, parentarray);
+        return getItemsById(id, inheritarray);
     }
 }

@@ -1,19 +1,28 @@
 ﻿import * as React from "react";
-import * as ReactDOM from "react-dom";
 import { CategoryItem } from "./CategoryItem.component";
+import { SubCategoryList } from "./SubCategoryList.component";
 
 class СategoryList extends React.Component<any, any> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            sowSub: false
+        }
+    }
     componentDidMount() {
-        const {getCategories} = this.props;
+        const {getCategories, getSubCategories} = this.props;
         getCategories();
     }
     categoryClick(id: number) {
         const {getSubCategories} = this.props;
         getSubCategories(id);
+        this.setState({
+            sowSub: false
+        })
     }
     render() {
         const title = "Categories";
-        let categoriesNodes = this.props.categories.map((c: any) => {
+        let categoriesNodes = this.props.categoriesTree.map((c: any) => {
             return (
                 <CategoryItem title={c.title} key={c.id} onClick={() => this.categoryClick(c.id)}>
                     {c.title}
