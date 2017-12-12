@@ -27,7 +27,7 @@ const getItems = (size: number, parentarray: IitemTree[] ) => {
             const item: IitemTree = {
                 parent: cat.id,
                 id: id,
-                title: "item" + i
+                title: "subitem" + i
             };
             items.push(item);
             id++;
@@ -48,6 +48,7 @@ export default class Api {
     static getSubCategories(id: number) {
         let parentarray: IitemTree[] = itemsGenerator(10);
         let inheritarray:  IitemTree[] =  getItems(10, parentarray);
-        return getItemsById(id, inheritarray);
+        let result = getItemsById(id, inheritarray);
+        return result;
     }
 }

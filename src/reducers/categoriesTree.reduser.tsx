@@ -3,8 +3,9 @@ import {GET_CATEGORIES_SUCCEEDED, GET_SUBCATEGORIES_SUCCEEDED} from '../constant
 interface ITreeItem {
     id: number;
     parent: number;
+    active: boolean;
     title: string;
-    childrens?: ITreeItem[]
+    children?: ITreeItem[]
 }
 
 interface IState {
@@ -16,6 +17,7 @@ const initialState: IState = {
         {
             id: 0,
             parent: 0,
+            active: false,
             title: ""
         }
     ]
@@ -34,14 +36,18 @@ const categoriesTreeReducer = (state = initialState, action: any): IState => {
                 if(cat.id == action.id) {
                     cat = {
                         ...cat,
-                        childrens: action.subcategories
+                        active: true,
+                        children: action.subcategories
+                    };
+                } else {
+                    cat = {
+                        ...cat,
+                        active: false
                     };
                 }
                 return cat;
             });
-            console.log(newcategoriesTree);
             return {
-                ...state,
                 categoriesTree: newcategoriesTree
             };
         default:
