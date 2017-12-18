@@ -1,4 +1,4 @@
-import {GET_CATEGORIES, GET_CATEGORIES_SUCCEEDED, GET_SUBCATEGORIES, GET_SUBCATEGORIES_SUCCEEDED} from '../constants/actionTypes.constant';
+import {GET_ITEMS_SUCCEEDED, GET_ROOTITEMS_SUCCEEDED, GET_ROOTITEMS, GET_ITEMS} from '../constants/actionTypes.constant';
 import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import Api from '../api/Api';
 
@@ -7,8 +7,8 @@ import Api from '../api/Api';
  */
 function * fetchCategories() {
     try {
-        const categories = yield call(Api.getCategories);
-        yield put({type: GET_CATEGORIES_SUCCEEDED, categories: categories});
+        const rootitems = yield call(Api.getCategories);
+        yield put({type: GET_ROOTITEMS_SUCCEEDED, rootitems: rootitems});
     } catch (e) {
 
     }
@@ -16,16 +16,24 @@ function * fetchCategories() {
 
 function * fetchSubCategories(action: any) {
     try {
-        const subcategories = yield call(Api.getSubCategories, action.id);
-        yield put({type: GET_SUBCATEGORIES_SUCCEEDED, subcategories: subcategories, id: action.id});
+        const items = yield call(Api.getSubCategories, action.node.id);
+        yield put({type: GET_ITEMS_SUCCEEDED, items: items, node: action.node});
+    } catch (e) {
+
+    }
+}
+function * fetchTypes(action: any) {
+    try {
+        const items = yield call(Api.getSubCategories, action.node.id);
+        yield put({type: GET_ITEMS_SUCCEEDED, items: items, node: action.node});
     } catch (e) {
 
     }
 }
 
 function * bbinfoSaga() {
-    yield takeEvery(GET_CATEGORIES, fetchCategories);
-    yield takeEvery(GET_SUBCATEGORIES, fetchSubCategories);
+    yield takeEvery(GET_ROOTITEMS, fetchCategories);
+    yield takeEvery(GET_ITEMS, fetchSubCategories);
 }
 
 export default bbinfoSaga;

@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
-import categoriesReducer from "./categoriesTree.reduser";
+import itemsTreeReducer from "./itemsTree.reduser";
 
 const bbinfoReducer = combineReducers({
-    categoriesReducer
+    itemsTreeReducer
 });
 
 export default bbinfoReducer;

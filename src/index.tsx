@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import bbinfoSaga from './saga/saga';
 import { Provider } from "react-redux";
 import bbinfoReducer from "./reducers/";
-import СategoryList from "./containers/categoriesTree.container";
+import ItemsList from "./containers/itemsTree.container";
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -17,7 +17,7 @@ sagaMiddleware.run(bbinfoSaga);
 
 ReactDOM.render(
     <Provider store={store}>
-        <СategoryList />
+        <ItemsList  />
     </Provider>,
     document.getElementById("categorylist")
 );

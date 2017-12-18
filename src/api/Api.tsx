@@ -1,16 +1,12 @@
 import {eventChannel, END} from 'redux-saga';
-export interface IitemTree {
-    id: number;
-    parent: number;
-    title: string;
-}
+import {IItem} from '../interfaces/interfaces';
 
 const itemsGenerator = (size: number) => {
     const items = [];
 
     for (let i = 1; i <= size; i++) {
-        const item: IitemTree = {
-            parent: 0,
+        const item: IItem = {
+            parent_id: 0,
             id: i,
             title: "item" + i
         };
@@ -19,13 +15,13 @@ const itemsGenerator = (size: number) => {
     return items;
 };
 
-const getItems = (size: number, parentarray: IitemTree[] ) => {
+const getItems = (size: number, parentarray: IItem[] ) => {
     let id = 1;
-    let items: IitemTree[] = [];
+    let items: IItem[] = [];
     parentarray.map((cat: any) => {
         for (let i = 1; i <= size; i++) {
-            const item: IitemTree = {
-                parent: cat.id,
+            const item: IItem = {
+                parent_id: cat.id,
                 id: id,
                 title: "subitem" + i
             };
@@ -37,8 +33,8 @@ const getItems = (size: number, parentarray: IitemTree[] ) => {
     return items;
 };
 
-const getItemsById = (id: number, parentarray: IitemTree[]) => {
-    return parentarray.filter((item: IitemTree) => item.parent == id);
+const getItemsById = (id: number, parentarray: IItem[]) => {
+    return parentarray.filter((item: IItem) => item.parent_id == id);
 };
 
 export default class Api {
@@ -46,8 +42,8 @@ export default class Api {
         return itemsGenerator(10);
     }
     static getSubCategories(id: number) {
-        let parentarray: IitemTree[] = itemsGenerator(10);
-        let inheritarray:  IitemTree[] =  getItems(10, parentarray);
+        let parentarray: IItem[] = itemsGenerator(10);
+        let inheritarray:  IItem[] =  getItems(10, parentarray);
         let result = getItemsById(id, inheritarray);
         return result;
     }
